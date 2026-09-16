@@ -9001,60 +9001,31 @@ body[data-theme="dark"] #update-note-overlay{background:rgba(3,7,18,.58)!importa
 <style id="v84-exact-map-feature-resolution">
 /* V84: exact administrative-name matching. Prevent province/city prefix collisions such as Quezon vs Quezon City. */
 </style>
-
-<style id="pmm-user-name-gate-style">
-  #pmm-user-name-gate{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(2,6,18,.64);backdrop-filter:blur(14px) saturate(125%);-webkit-backdrop-filter:blur(14px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease}
-  #pmm-user-name-gate.open{opacity:1;visibility:visible;pointer-events:auto}
-  .pmm-user-name-card{width:min(420px,calc(100vw - 32px));padding:26px;border:1px solid var(--line,rgba(255,255,255,.16));border-radius:26px;background:var(--glass,rgba(255,255,255,.08));box-shadow:var(--shadow,0 20px 60px rgba(0,0,0,.28));text-align:left;transform:translateY(10px) scale(.98);transition:transform .3s cubic-bezier(.22,1,.36,1)}
-  #pmm-user-name-gate.open .pmm-user-name-card{transform:translateY(0) scale(1)}
-  .pmm-user-name-eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--user-accent,var(--accent,#60a5fa));margin-bottom:8px}
-  .pmm-user-name-card h2{margin:0 0 7px;font-size:clamp(1.45rem,4vw,1.9rem);letter-spacing:-.025em}
-  .pmm-user-name-card p{margin:0 0 18px;color:var(--muted,#94a3b8);line-height:1.55;font-size:.9rem}
-  .pmm-user-name-label{display:block;font-size:.78rem;font-weight:750;margin:0 0 7px;color:var(--text,#e5e7eb)}
-  #pmm-user-name-input{width:100%;min-height:48px;padding:12px 14px;border-radius:15px;border:1px solid var(--line,rgba(255,255,255,.16));background:var(--elev,rgba(255,255,255,.06));color:var(--text,#fff);font:inherit;outline:none;box-sizing:border-box;transition:border-color .2s,box-shadow .2s,background .2s}
-  #pmm-user-name-input:focus{border-color:var(--user-accent,var(--accent,#60a5fa));box-shadow:0 0 0 3px color-mix(in srgb,var(--user-accent,var(--accent,#60a5fa)) 18%,transparent)}
-  #pmm-user-name-input::placeholder{color:var(--muted,#94a3b8);opacity:.72}
-  .pmm-user-name-note{font-size:.72rem!important;margin:8px 0 0!important;color:var(--muted,#94a3b8)!important}
-  .pmm-user-name-error{min-height:18px;margin:7px 0 0;color:#f87171;font-size:.76rem;font-weight:650}
-  .pmm-user-name-actions{display:flex;gap:10px;margin-top:18px}
-  #pmm-user-name-continue{width:100%;min-height:46px}
-  @media(max-width:430px){.pmm-user-name-card{padding:22px;border-radius:22px}.pmm-user-name-actions{margin-top:15px}}
+<style id="anonymous-name-gate-tracking-ui">
+.welcome-name-entry{margin:14px 0 12px;text-align:left}
+.welcome-name-entry input{width:100%;box-sizing:border-box;min-height:46px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--glass)!important;color:var(--text);font:inherit;outline:none}
+.welcome-name-entry input:focus{border-color:color-mix(in srgb,var(--user-accent) 62%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--user-accent) 16%,transparent)}
+#welcome-name-error{display:block;min-height:18px;margin-top:6px;color:#ef4444;font-size:.78rem}
 </style>
-
-<!-- Vercel Web Analytics for this plain HTML/Vercel deployment. Enable Web Analytics in the Vercel project dashboard. -->
-<script>
-  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-</script>
-<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body data-theme="light">
 <!-- Welcome / About intro (auto-close 5s, don't show again) -->
-
-<!-- Anonymous user name gate: first-visit identity for project usage records. -->
-<div id="pmm-user-name-gate" role="dialog" aria-modal="true" aria-labelledby="pmm-user-name-title" aria-hidden="true">
-  <div class="pmm-user-name-card">
-    <div class="pmm-user-name-eyebrow">Explore Philippines Map</div>
-    <h2 id="pmm-user-name-title">Before we start</h2>
-    <p>Enter your name so your quiz activity can be associated with your project session.</p>
-    <label class="pmm-user-name-label" for="pmm-user-name-input">Name</label>
-    <input id="pmm-user-name-input" type="text" maxlength="80" autocomplete="name" placeholder="Enter your name" />
-    <div class="pmm-user-name-error" id="pmm-user-name-error" aria-live="polite"></div>
-    <p class="pmm-user-name-note">No email, password, or account is required.</p>
-    <div class="pmm-user-name-actions"><button class="btn btn-primary" id="pmm-user-name-continue" type="button">Continue</button></div>
-  </div>
-</div>
 <div aria-label="Welcome" class="welcome-overlay" id="welcome-overlay" role="dialog">
 <div class="welcome-panel">
 <img alt="Creator" class="welcome-avatar" decoding="async" height="88" id="welcome-avatar" width="88"/>
-<h3 id="welcome-name">Pantoja, Edrian DC.</h3>
-<div class="welcome-aff" id="welcome-aff">BSIT 1G-G2 · Bulacan State University</div>
-<p class="welcome-msg">Welcome to Explore Philippines Map - learn provinces, capitals, and regions.</p>
+<h3 id="welcome-name">Before We Start</h3>
+<div class="welcome-aff" id="welcome-aff">Explore Philippines Map</div>
+<p class="welcome-msg">What should we call you? Your name is used only for this app's anonymous usage records.</p>
+<div class="welcome-name-entry">
+  <input id="welcome-user-name" type="text" maxlength="80" autocomplete="name" placeholder="Enter your name" aria-label="Your name"/>
+  <small id="welcome-name-error" aria-live="polite"></small>
+</div>
 <div aria-hidden="true" class="welcome-progress"><i id="welcome-bar"></i></div>
 <label class="welcome-check">
 <input id="welcome-dont-show" type="checkbox"/>
           Don't show again
         </label>
-<button class="btn btn-primary" onclick="dismissWelcome(true)" style="width:100%" type="button">Got it</button>
+<button class="btn btn-primary" id="welcome-continue-btn" onclick="submitWelcomeName()" style="width:100%" type="button">Continue</button>
 </div>
 </div>
 <!-- V67 What's New update popup: shown 5s after the user clicks Got it on Welcome. No auto-close. -->
@@ -9659,6 +9630,7 @@ body[data-theme="dark"] #update-note-overlay{background:rgba(3,7,18,.58)!importa
 </div>
 <footer aria-hidden="true" style="display:none"></footer>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     // ===== DATA =====
     
@@ -13770,6 +13742,7 @@ const REGIONS = {
     }
 
     function startQuiz() {
+      try { if (window.__pmmTracking) window.__pmmTracking.record("quiz_started", { region: (typeof currentCode !== "undefined" ? currentCode : null) }); } catch (_) {}
       if (typeof updateRegionStatusOverlays === "function") updateRegionStatusOverlays();
       // Normal games always start fresh. Speedrun keeps the same 3/3 limits while moving between regions.
       const continuingSpeedrun = playStyle === "speedrun" && speedrunCarrySeconds != null && speedrunCarrySeconds > 0;
@@ -16319,6 +16292,7 @@ const REGIONS = {
     }
 
     function showResults(timedOut) {
+      try { if (window.__pmmTracking) window.__pmmTracking.record("quiz_completed", { timed_out: !!timedOut }); } catch (_) {}
       clearAllQuizMarks();
       clearAutoNext();
       // Freeze leftover time for carry, then stop the ticking timer
@@ -16579,6 +16553,10 @@ const REGIONS = {
     }
 
     function shouldShowWelcome() {
+      try {
+        const rememberedName = (localStorage.getItem("pmm-anonymous-user-name-v1") || "").trim();
+        if (rememberedName.length >= 2) return false;
+      } catch (_) {}
       return !readWelcomeHide();
     }
 
@@ -16661,7 +16639,16 @@ const REGIONS = {
       ov.classList.remove("closing");
       ov.classList.add("open");
       if (welcomeTimer) clearTimeout(welcomeTimer);
-      welcomeTimer = setTimeout(() => dismissWelcome(false), 5000);
+      // A new user must explicitly enter a name; returning users are skipped above.
+      let rememberedName = "";
+      try { rememberedName = (localStorage.getItem("pmm-anonymous-user-name-v1") || "").trim(); } catch (_) {}
+      if (rememberedName.length < 2) {
+        const input = document.getElementById("welcome-user-name");
+        if (input) setTimeout(() => input.focus(), 60);
+        welcomeTimer = null;
+      } else {
+        welcomeTimer = setTimeout(() => dismissWelcome(false), 5000);
+      }
     }
     window.dismissWelcome = dismissWelcome;
     window.showWelcomeIfNeeded = showWelcomeIfNeeded;
@@ -18888,91 +18875,6 @@ body[data-neon="on"] {
               var(--shadow), 0 0 18px color-mix(in srgb, var(--user-accent) 18%, transparent) !important;
 }
 </style>
-
-<script id="pmm-user-tracking-v1">
-(function(){
-  "use strict";
-  const USER_KEY = "pmm-anonymous-user-v1";
-  const SESSION_KEY = "pmm-anonymous-session-v1";
-  const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-  const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
-  const HEARTBEAT_MS = 30000;
-  const NAME_MAX = 80;
-  let heartbeatTimer = null;
-  let initialized = false;
-
-  function configured(){ return /^https:\/\/[^\s]+\.supabase\.co$/.test(SUPABASE_URL) && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes("YOUR_"); }
-  function uuid(){ try { if (crypto && typeof crypto.randomUUID === "function") return crypto.randomUUID(); } catch(_){} return "pmm-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2)+"-"+Math.random().toString(36).slice(2); }
-  function readUser(){ try { return JSON.parse(localStorage.getItem(USER_KEY)||"null"); } catch(_) { return null; } }
-  function saveUser(user){ try { localStorage.setItem(USER_KEY, JSON.stringify(user)); } catch(_){} }
-  function getSessionId(){ let id=""; try{id=sessionStorage.getItem(SESSION_KEY)||"";}catch(_){} if(!id){id=uuid();try{sessionStorage.setItem(SESSION_KEY,id);}catch(_){}} return id; }
-  function cleanName(v){ return String(v||"").replace(/\s+/g," ").trim().slice(0,NAME_MAX); }
-  function mode(){ try { return typeof appMode !== "undefined" ? String(appMode||"") : ""; } catch(_) { return ""; } }
-  async function rpc(fn, body){
-    if(!configured()) return null;
-    try{
-      const r=await fetch(SUPABASE_URL+"/rest/v1/rpc/"+fn,{method:"POST",headers:{"Content-Type":"application/json","apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY},body:JSON.stringify(body||{})});
-      if(!r.ok) throw new Error("RPC "+r.status);
-      const t=await r.text(); return t?JSON.parse(t):null;
-    }catch(e){ console.warn("[User tracking]",e); return null; }
-  }
-  async function upsertUser(user, isNewSession){
-    return rpc("pmm_upsert_user",{p_user_id:user.id,p_name:user.name,p_session_id:getSessionId(),p_mode:mode(),p_new_session:!!isNewSession});
-  }
-  async function heartbeat(){ const u=readUser(); if(!u) return; await rpc("pmm_heartbeat",{p_user_id:u.id,p_name:u.name,p_mode:mode()}); }
-  async function event(type,payload){ const u=readUser(); if(!u) return; await rpc("pmm_record_event",{p_user_id:u.id,p_name:u.name,p_session_id:getSessionId(),p_event_type:type,p_mode:mode(),p_payload:payload||{}}); }
-  function openGate(){
-    const ov=document.getElementById("pmm-user-name-gate"), input=document.getElementById("pmm-user-name-input");
-    if(!ov) return;
-    ov.classList.add("open"); ov.setAttribute("aria-hidden","false"); document.body.classList.add("modal-open");
-    setTimeout(()=>{if(input){input.focus();input.select();}},80);
-  }
-  function closeGate(){ const ov=document.getElementById("pmm-user-name-gate"); if(!ov)return; ov.classList.remove("open");ov.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open"); }
-  async function submitName(){
-    const input=document.getElementById("pmm-user-name-input"), err=document.getElementById("pmm-user-name-error");
-    const name=cleanName(input&&input.value);
-    if(name.length<2){ if(err)err.textContent="Please enter at least 2 characters."; if(input)input.focus(); return; }
-    if(err)err.textContent="";
-    const old=readUser(); const user=old&&old.id ? {id:old.id,name} : {id:uuid(),name,created_at:new Date().toISOString()};
-    saveUser(user); closeGate();
-    await upsertUser(user,!old);
-    await event(old?"name_updated":"user_started",{first_visit:!old});
-    heartbeat(); startHeartbeat();
-    if(typeof showWelcomeIfNeeded === "function") setTimeout(showWelcomeIfNeeded,120);
-  }
-  function startHeartbeat(){ if(heartbeatTimer)clearInterval(heartbeatTimer); heartbeatTimer=setInterval(heartbeat,HEARTBEAT_MS); heartbeat(); }
-  function boot(){
-    if(initialized)return; initialized=true;
-    const existing=readUser();
-    const btn=document.getElementById("pmm-user-name-continue"), input=document.getElementById("pmm-user-name-input");
-    if(btn)btn.addEventListener("click",submitName);
-    if(input)input.addEventListener("keydown",e=>{if(e.key==="Enter")submitName();});
-    if(existing&&existing.id&&cleanName(existing.name)) { startHeartbeat(); if(typeof showWelcomeIfNeeded === "function") setTimeout(showWelcomeIfNeeded,350); }
-    else { openGate(); }
-    document.addEventListener("visibilitychange",()=>{if(!document.hidden)heartbeat();});
-    window.addEventListener("beforeunload",()=>{ /* presence expires automatically after heartbeat timeout */ });
-  }
-  window.PMMUserTracking={getUser:readUser,trackEvent:event,heartbeat:heartbeat,isConfigured:configured};
-
-  // Capture completed quizzes without changing the existing quiz function itself.
-  function installWrappers(){
-    try{
-      if(typeof window.showResults === "function" && !window.showResults.__pmmTracked){
-        const original=window.showResults;
-        const wrapped=function(){ const result=original.apply(this,arguments); try{ const total=typeof queue!=="undefined"&&queue?queue.length:0; const correct=typeof score!=="undefined"?Number(score)||0:0; event("quiz_completed",{total,correct,percent:total?Math.round(correct/total*100):0,timed_out:!!arguments[0],region:typeof currentCode!=="undefined"?currentCode:null}); }catch(_){} return result; };
-        wrapped.__pmmTracked=true; window.showResults=wrapped;
-      }
-      if(typeof window.startQuiz === "function" && !window.startQuiz.__pmmTracked){
-        const original=window.startQuiz;
-        const wrapped=function(){ const r=original.apply(this,arguments); try{event("quiz_started",{region:typeof currentCode!=="undefined"?currentCode:null});}catch(_){} return r; };
-        wrapped.__pmmTracked=true; window.startQuiz=wrapped;
-      }
-    }catch(_){}
-  }
-  function ready(){ boot(); setTimeout(installWrappers,1200); setTimeout(installWrappers,3000); }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",ready,{once:true});else ready();
-})();
-</script>
 </body>
 
 <style id="desktop-max-width-v30">
@@ -21712,3 +21614,129 @@ body[data-neon="on"] {
   }
 }
 </style>
+\n<script id="anonymous-supabase-tracking-v1">
+(function(){
+  "use strict";
+
+  // Browser/static HTML client. Use ONLY the Supabase publishable key here.
+  const SUPABASE_URL = "https://xuyloityloubslngdstf.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_wRdwuXCTyWzHGFubTi-8fw_nsQtGeVA";
+  const USER_ID_KEY = "pmm-anonymous-user-id-v1";
+  const USER_NAME_KEY = "pmm-anonymous-user-name-v1";
+  const SESSION_ID_KEY = "pmm-anonymous-session-id-v1";
+  const SESSION_COUNTED_KEY = "pmm-anonymous-session-counted-v1";
+  const HEARTBEAT_MS = 30000;
+  let client = null;
+  let heartbeatTimer = null;
+
+  function safeGet(store,key){try{return store.getItem(key)}catch(_){return null}}
+  function safeSet(store,key,value){try{store.setItem(key,value)}catch(_){} }
+  function uuid(){
+    try { if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID(); } catch(_){}
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
+      const r=Math.random()*16|0,v=c==="x"?r:(r&3|8); return v.toString(16);
+    });
+  }
+  function getUserId(){
+    let id=safeGet(localStorage,USER_ID_KEY);
+    if(!id){id=uuid();safeSet(localStorage,USER_ID_KEY,id)}
+    return id;
+  }
+  function getName(){return (safeGet(localStorage,USER_NAME_KEY)||"").trim().replace(/\s+/g," ").slice(0,80)}
+  function getSessionId(){
+    let id=safeGet(sessionStorage,SESSION_ID_KEY);
+    if(!id){id=uuid();safeSet(sessionStorage,SESSION_ID_KEY,id)}
+    return id;
+  }
+  function currentMode(){
+    try { if(typeof appMode!=="undefined" && appMode) return String(appMode); } catch(_){}
+    return null;
+  }
+  function ready(){return !!(client && client.rpc && getName().length>=2)}
+  function init(){
+    if(!window.supabase || !window.supabase.createClient) return;
+    if(SUPABASE_PUBLISHABLE_KEY.indexOf("YOUR_")===0) return;
+    try { client=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY); } catch(_) { client=null; }
+  }
+  async function rpc(name,args){
+    if(!ready()) return null;
+    try { const res=await client.rpc(name,args); return res && !res.error ? res.data : null; } catch(_) { return null; }
+  }
+  function ensureUser(newSession){
+    const name=getName();
+    if(name.length<2) return Promise.resolve(null);
+    return rpc("pmm_upsert_user",{
+      p_user_id:getUserId(), p_name:name, p_session_id:getSessionId(),
+      p_mode:currentMode(), p_new_session:!!newSession
+    });
+  }
+  function record(eventType,payload){
+    const name=getName();
+    if(name.length<2) return;
+    rpc("pmm_record_event",{
+      p_user_id:getUserId(), p_name:name, p_session_id:getSessionId(),
+      p_event_type:eventType, p_mode:currentMode(), p_payload:payload||{}
+    });
+  }
+  function heartbeat(){
+    if(!ready()) return;
+    rpc("pmm_heartbeat",{p_user_id:getUserId(),p_name:getName(),p_mode:currentMode()});
+  }
+  function startHeartbeat(){
+    if(heartbeatTimer) clearInterval(heartbeatTimer);
+    heartbeat();
+    heartbeatTimer=setInterval(heartbeat,HEARTBEAT_MS);
+  }
+
+  window.__pmmTracking={getUserId,getName,currentMode,ensureUser,record,heartbeat,init,startHeartbeat};
+
+  window.submitWelcomeName=function(){
+    const input=document.getElementById("welcome-user-name");
+    const error=document.getElementById("welcome-name-error");
+    const name=(input?input.value:"").trim().replace(/\s+/g," ");
+    if(name.length<2){
+      if(error) error.textContent="Please enter at least 2 characters.";
+      if(input) input.focus();
+      return;
+    }
+    safeSet(localStorage,USER_NAME_KEY,name.slice(0,80));
+    if(error) error.textContent="";
+    const dont=document.getElementById("welcome-dont-show");
+    if(dont && dont.checked){
+      try { localStorage.setItem("pmm-welcome-hide-v1","1"); } catch(_){}
+    }
+    const btn=document.getElementById("welcome-continue-btn");
+    if(btn){btn.disabled=true;btn.textContent="Starting…"}
+    const newSession=!safeGet(sessionStorage,SESSION_COUNTED_KEY);
+    ensureUser(newSession).then(function(){
+      if(newSession) safeSet(sessionStorage,SESSION_COUNTED_KEY,"1");
+      record("session_started",{source:"welcome_name_gate"});
+      startHeartbeat();
+      if(typeof dismissWelcome==="function") dismissWelcome(true);
+    });
+  };
+
+  function boot(){
+    init();
+    const input=document.getElementById("welcome-user-name");
+    if(input){
+      const existing=getName();
+      if(existing) input.value=existing;
+      input.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();window.submitWelcomeName();}});
+    }
+    const name=getName();
+    if(name.length>=2){
+      const newSession=!safeGet(sessionStorage,SESSION_COUNTED_KEY);
+      ensureUser(newSession).then(function(){
+        if(newSession) safeSet(sessionStorage,SESSION_COUNTED_KEY,"1");
+        startHeartbeat();
+      });
+    }
+  }
+
+  document.addEventListener("visibilitychange",function(){if(!document.hidden) heartbeat();});
+  window.addEventListener("beforeunload",function(){heartbeat();});
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot,{once:true});
+  else boot();
+})();
+</script>
