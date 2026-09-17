@@ -9002,29 +9002,58 @@ body[data-theme="dark"] #update-note-overlay{background:rgba(3,7,18,.58)!importa
 /* V84: exact administrative-name matching. Prevent province/city prefix collisions such as Quezon vs Quezon City. */
 </style>
 <style id="anonymous-name-gate-tracking-ui">
-.welcome-name-entry{margin:14px 0 12px;text-align:left}
-.welcome-name-entry input{width:100%;box-sizing:border-box;min-height:46px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--glass)!important;color:var(--text);font:inherit;outline:none}
+.welcome-name-entry{margin:14px 0 10px;text-align:left}
+.welcome-name-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.welcome-name-field{min-width:0}
+.welcome-name-label{display:block;margin:0 0 6px;font-size:.76rem;font-weight:700;color:var(--muted)}
+.welcome-name-label em{font-style:normal;font-weight:500;opacity:.75}
+.welcome-name-entry input{width:100%;box-sizing:border-box;min-height:46px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--glass)!important;color:var(--text);font:inherit;outline:none;transition:border-color .18s ease,box-shadow .18s ease,background .18s ease}
+.welcome-name-entry input::placeholder{color:var(--muted);opacity:.72}
 .welcome-name-entry input:focus{border-color:color-mix(in srgb,var(--user-accent) 62%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--user-accent) 16%,transparent)}
-#welcome-name-error{display:block;min-height:18px;margin-top:6px;color:#ef4444;font-size:.78rem}
+#welcome-name-error{display:block;min-height:18px;margin-top:7px;color:#ef4444;font-size:.78rem}
+.welcome-privacy-note{margin:0 0 12px;font-size:.76rem;line-height:1.45;color:var(--muted);text-align:left}
+.welcome-check{display:flex;align-items:center;justify-content:flex-start;gap:10px;width:100%;box-sizing:border-box;padding:10px 12px;margin:2px 0 12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--glass) 78%,transparent);color:var(--muted);font-size:.78rem;cursor:pointer;user-select:none;transition:border-color .18s ease,background .18s ease,transform .18s ease}
+.welcome-check:hover{border-color:color-mix(in srgb,var(--user-accent) 42%,var(--line));background:color-mix(in srgb,var(--glass) 92%,transparent)}
+.welcome-check input{position:absolute;opacity:0;pointer-events:none}
+.welcome-check-box{width:18px;height:18px;flex:0 0 18px;display:grid;place-items:center;border:1.5px solid color-mix(in srgb,var(--muted) 55%,var(--line));border-radius:5px;background:transparent;transition:all .18s ease}
+.welcome-check input:checked + .welcome-check-box{border-color:var(--user-accent);background:var(--user-accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--user-accent) 13%,transparent)}
+.welcome-check input:checked + .welcome-check-box::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-1px)}
+.welcome-check input:focus-visible + .welcome-check-box{box-shadow:0 0 0 3px color-mix(in srgb,var(--user-accent) 20%,transparent)}
+.welcome-check-text{line-height:1.35}
+.home-user-greeting{margin:0 auto 10px;text-align:center;font-size:.92rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
+.home-user-greeting .home-greeting-name{color:var(--user-accent)}
+@media (max-width:560px){
+  .welcome-name-fields{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body data-theme="light">
-<!-- Welcome / About intro (auto-close 5s, don't show again) -->
+<!-- Welcome name gate / intro (explicit Continue, don't show again) -->
 <div aria-label="Welcome" class="welcome-overlay" id="welcome-overlay" role="dialog">
 <div class="welcome-panel">
 <img alt="Creator" class="welcome-avatar" decoding="async" height="88" id="welcome-avatar" width="88"/>
 <h3 id="welcome-name">Before We Start</h3>
 <div class="welcome-aff" id="welcome-aff">Explore Philippines Map</div>
-<p class="welcome-msg">What should we call you? Your name is used only for this app's anonymous usage records.</p>
+<p class="welcome-msg">What should I call you?</p>
+<p class="welcome-privacy-note"><strong>Please use your real name.</strong> Your name is only used to personalize this app and for anonymous usage records. It is not used for advertising or sold to third parties.</p>
 <div class="welcome-name-entry">
-  <input id="welcome-user-name" type="text" maxlength="80" autocomplete="name" placeholder="Enter your name" aria-label="Your name"/>
+  <div class="welcome-name-fields">
+    <div class="welcome-name-field">
+      <label class="welcome-name-label" for="welcome-user-first-name">First name <em>Required</em></label>
+      <input id="welcome-user-first-name" type="text" maxlength="40" autocomplete="given-name" placeholder="e.g. Edrian" aria-label="Your first name"/>
+    </div>
+    <div class="welcome-name-field">
+      <label class="welcome-name-label" for="welcome-user-last-name">Last name <em>Optional</em></label>
+      <input id="welcome-user-last-name" type="text" maxlength="40" autocomplete="family-name" placeholder="e.g. Pantoja" aria-label="Your last name"/>
+    </div>
+  </div>
   <small id="welcome-name-error" aria-live="polite"></small>
 </div>
-<div aria-hidden="true" class="welcome-progress"><i id="welcome-bar"></i></div>
 <label class="welcome-check">
-<input id="welcome-dont-show" type="checkbox"/>
-          Don't show again
-        </label>
+  <input id="welcome-dont-show" type="checkbox"/>
+  <span class="welcome-check-box" aria-hidden="true"></span>
+  <span class="welcome-check-text">Don't show this again</span>
+</label>
 <button class="btn btn-primary" id="welcome-continue-btn" onclick="submitWelcomeName()" style="width:100%" type="button">Continue</button>
 </div>
 </div>
@@ -9329,6 +9358,7 @@ body[data-theme="dark"] #update-note-overlay{background:rgba(3,7,18,.58)!importa
 <!-- HOME -->
 <div class="screen active" id="screen-home">
 <div class="hero">
+<div class="home-user-greeting" id="home-user-greeting" aria-live="polite" style="display:none"></div>
 <div class="hero-badge">Provinces · Capitals · Regions</div>
 <h1>Explore Philippines Map</h1>
 <p>Learn and retain every province and capital - pin them on the map, type from memory, or review by region.</p>
@@ -16622,12 +16652,6 @@ const REGIONS = {
       const ov = document.getElementById("welcome-overlay");
       if (!ov) return;
       ov.style.display = "";
-      const bar = document.getElementById("welcome-bar");
-      if (bar) {
-        bar.style.animation = "none";
-        void bar.offsetWidth;
-        bar.style.animation = "";
-      }
       // Bind checkbox so preference saves immediately when toggled
       const dont = document.getElementById("welcome-dont-show");
       if (dont && !dont._boundHide) {
@@ -16643,11 +16667,9 @@ const REGIONS = {
       let rememberedName = "";
       try { rememberedName = (localStorage.getItem("pmm-anonymous-user-name-v1") || "").trim(); } catch (_) {}
       if (rememberedName.length < 2) {
-        const input = document.getElementById("welcome-user-name");
+        const input = document.getElementById("welcome-user-first-name");
         if (input) setTimeout(() => input.focus(), 60);
         welcomeTimer = null;
-      } else {
-        welcomeTimer = setTimeout(() => dismissWelcome(false), 5000);
       }
     }
     window.dismissWelcome = dismissWelcome;
@@ -21620,9 +21642,11 @@ body[data-neon="on"] {
 
   // Browser/static HTML client. Use ONLY the Supabase publishable key here.
   const SUPABASE_URL = "https://xuyloityloubslngdstf.supabase.co";
-  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_wRdwuXCTyWzHGFubTi-8fw_nsQtGeVA";
+  const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
   const USER_ID_KEY = "pmm-anonymous-user-id-v1";
   const USER_NAME_KEY = "pmm-anonymous-user-name-v1";
+  const USER_FIRST_NAME_KEY = "pmm-anonymous-user-first-name-v1";
+  const USER_LAST_NAME_KEY = "pmm-anonymous-user-last-name-v1";
   const SESSION_ID_KEY = "pmm-anonymous-session-id-v1";
   const SESSION_COUNTED_KEY = "pmm-anonymous-session-counted-v1";
   const HEARTBEAT_MS = 30000;
@@ -21690,42 +21714,115 @@ body[data-neon="on"] {
 
   window.__pmmTracking={getUserId,getName,currentMode,ensureUser,record,heartbeat,init,startHeartbeat};
 
+  const GREETING_SESSION_KEY = "pmm-welcome-greeting-session-v1";
+
+  function cleanNamePart(value,max){
+    return String(value||"").replace(/\s+/g," ").trim().slice(0,max||40);
+  }
+
+  function getFirstNameFromStoredName(fullName){
+    const value=cleanNamePart(fullName,80);
+    if(!value) return "";
+    // Support older saved names such as "Surname, Firstname".
+    if(value.includes(",")){
+      const afterComma=value.split(",").slice(1).join(",").trim();
+      if(afterComma) return afterComma.split(/\s+/)[0];
+    }
+    return value.split(/\s+/)[0];
+  }
+
+  function updateHomeGreeting(isReturning){
+    const el=document.getElementById("home-user-greeting");
+    if(!el) return;
+    const first=getFirstNameFromStoredName(getName());
+    if(!first){ el.style.display="none"; el.textContent=""; return; }
+    el.innerHTML=(isReturning ? "Welcome back, " : "Welcome, ") +
+      '<span class="home-greeting-name"></span>!';
+    const n=el.querySelector(".home-greeting-name");
+    if(n) n.textContent=first;
+    el.style.display="";
+  }
+
+  function markGreetingForCurrentSession(){
+    try { sessionStorage.setItem(GREETING_SESSION_KEY,"1"); } catch(_){}
+  }
+
   window.submitWelcomeName=function(){
-    const input=document.getElementById("welcome-user-name");
+    const firstInput=document.getElementById("welcome-user-first-name");
+    const lastInput=document.getElementById("welcome-user-last-name");
     const error=document.getElementById("welcome-name-error");
-    const name=(input?input.value:"").trim().replace(/\s+/g," ");
-    if(name.length<2){
-      if(error) error.textContent="Please enter at least 2 characters.";
-      if(input) input.focus();
+    const first=cleanNamePart(firstInput?firstInput.value:"",40);
+    const last=cleanNamePart(lastInput?lastInput.value:"",40);
+
+    if(first.length<2){
+      if(error) error.textContent="Please enter your first name (at least 2 characters).";
+      if(firstInput) firstInput.focus();
       return;
     }
-    safeSet(localStorage,USER_NAME_KEY,name.slice(0,80));
+
+    const name=[first,last].filter(Boolean).join(" ").slice(0,80);
+    safeSet(localStorage,USER_NAME_KEY,name);
+    safeSet(localStorage,USER_FIRST_NAME_KEY,first);
+    safeSet(localStorage,USER_LAST_NAME_KEY,last);
     if(error) error.textContent="";
+
     const dont=document.getElementById("welcome-dont-show");
     if(dont && dont.checked){
       try { localStorage.setItem("pmm-welcome-hide-v1","1"); } catch(_){}
     }
-    const btn=document.getElementById("welcome-continue-btn");
-    if(btn){btn.disabled=true;btn.textContent="Starting…"}
+
+    // Close immediately; cloud tracking continues in the background.
+    if(typeof dismissWelcome==="function") dismissWelcome(true);
+    updateHomeGreeting(false);
+    markGreetingForCurrentSession();
+
     const newSession=!safeGet(sessionStorage,SESSION_COUNTED_KEY);
     ensureUser(newSession).then(function(){
       if(newSession) safeSet(sessionStorage,SESSION_COUNTED_KEY,"1");
       record("session_started",{source:"welcome_name_gate"});
       startHeartbeat();
-      if(typeof dismissWelcome==="function") dismissWelcome(true);
     });
   };
 
   function boot(){
     init();
-    const input=document.getElementById("welcome-user-name");
-    if(input){
-      const existing=getName();
-      if(existing) input.value=existing;
-      input.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();window.submitWelcomeName();}});
+
+    const firstInput=document.getElementById("welcome-user-first-name");
+    const lastInput=document.getElementById("welcome-user-last-name");
+    const existing=getName();
+    if(existing){
+      let parsedFirst=cleanNamePart(safeGet(localStorage,USER_FIRST_NAME_KEY),40);
+      let parsedLast=cleanNamePart(safeGet(localStorage,USER_LAST_NAME_KEY),40);
+
+      // Backward-compatible fallback for users who already have only the old
+      // single-name localStorage value.
+      if(!parsedFirst){
+        parsedFirst=getFirstNameFromStoredName(existing);
+      }
+      if(!parsedLast){
+        if(existing.includes(",")){
+          const beforeComma=existing.split(",")[0].trim();
+          if(beforeComma) parsedLast=beforeComma;
+        }else{
+          const parts=existing.split(/\s+/).filter(Boolean);
+          if(parts.length>1) parsedLast=parts.slice(1).join(" ");
+        }
+      }
+
+      if(firstInput) firstInput.value=parsedFirst;
+      if(lastInput) lastInput.value=parsedLast;
     }
-    const name=getName();
-    if(name.length>=2){
+
+    [firstInput,lastInput].forEach(function(input){
+      if(input) input.addEventListener("keydown",function(e){
+        if(e.key==="Enter"){e.preventDefault();window.submitWelcomeName();}
+      });
+    });
+
+    const hasGreeted=!!safeGet(sessionStorage,GREETING_SESSION_KEY);
+    updateHomeGreeting(hasGreeted);
+
+    if(existing.length>=2){
       const newSession=!safeGet(sessionStorage,SESSION_COUNTED_KEY);
       ensureUser(newSession).then(function(){
         if(newSession) safeSet(sessionStorage,SESSION_COUNTED_KEY,"1");
