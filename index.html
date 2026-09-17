@@ -9020,8 +9020,9 @@ body[data-theme="dark"] #update-note-overlay{background:rgba(3,7,18,.58)!importa
 .welcome-check input:checked + .welcome-check-box::after{content:"";width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translateY(-1px)}
 .welcome-check input:focus-visible + .welcome-check-box{box-shadow:0 0 0 3px color-mix(in srgb,var(--user-accent) 20%,transparent)}
 .welcome-check-text{line-height:1.35}
-.home-user-greeting{margin:0 auto 10px;text-align:center;font-size:.92rem;font-weight:700;color:var(--text);letter-spacing:-.01em}
-.home-user-greeting .home-greeting-name{color:var(--user-accent)}
+.home-user-greeting{margin:0 auto 14px;text-align:center;font-size:clamp(1.35rem,2vw,1.75rem);line-height:1.2;font-weight:800;color:var(--text);letter-spacing:-.025em}
+.home-user-greeting .home-greeting-name{color:var(--user-accent);font-weight:850}
+@media (max-width:560px){.home-user-greeting{font-size:1.2rem;margin-bottom:12px}}
 @media (max-width:560px){
   .welcome-name-fields{grid-template-columns:1fr}
 }
